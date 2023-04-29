@@ -1,6 +1,16 @@
 # Project 2: Consistency
 
 ## How to compile and run
+
+1. decide number of server and config server_num in server.c \
+'''
+#define time_length 20
+'''
+
+2. run replica first, run server at the end \
+
+3. title name should not contain space \
+
 make
 ```
 make all
@@ -9,11 +19,9 @@ make client
 ```
 
 run server \
-argv[1] : "primary" if running a primary server; anything else would be replica\
-argv[2] : {"local_write", "primary", "quorum"}\
-argv[3] : port 4000
+ID: 1,2,3,4,5 \
 ```
-./server <primary/replica> <strategy> <port>
+./server <ID>
 ```
 
 run client and follow the prompt

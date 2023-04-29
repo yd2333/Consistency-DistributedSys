@@ -25,10 +25,16 @@ int main( int argc, char *argv[] ) {
             printf("title;content\n@> ");
             memset(buf,0,sizeof(buf));
             memset(message,0,sizeof(message));
-            scanf("%s",buf);
+            // Clear the input buffer
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+
+            fgets(buf, 100, stdin);
             strcat(message, "post;");
             strcat(message, buf);
+            // int sock = send_message(IP, client_ports[ID], message);
             int sock = send_message(IP, client_ports[ID], message);
+
             memset(buf,0,sizeof(buf));
             recvfrom(sock, buf, sizeof(buf), 0, NULL, NULL);
             printf("%s\n", buf);
@@ -40,25 +46,39 @@ int main( int argc, char *argv[] ) {
             int sock = send_message(IP, client_ports[ID], message);
             memset(buf,0,sizeof(buf));
             recvfrom(sock, buf, sizeof(buf), 0, NULL, NULL);
+                        printf("-------------------\n");
+
             printf("%s\n", buf);
+                        printf("-------------------\n");
+
         }
         else if (strcmp(func,"choose") == 0) {
             printf("title\n@> ");
             memset(buf,0,sizeof(buf));
             memset(message,0,sizeof(message));
-            scanf("%s",buf);
+            // Clear the input buffer
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+
+            fgets(buf, 100, stdin);
             strcat(message, "choose;");
             strcat(message, buf);
             int sock = send_message(IP, client_ports[ID], message);
             memset(buf,0,sizeof(buf));
             recvfrom(sock, buf, sizeof(buf), 0, NULL, NULL);
+            printf("-------------------\n");
             printf("%s\n", buf);
+            printf("-------------------\n");
         }
         else if (strcmp(func,"reply") == 0) {
-            printf("<title of article to reply>;content\n@> ");
+            printf("<title of article to reply>;title;content\n@> ");
             memset(buf,0,sizeof(buf));
             memset(message,0,sizeof(message));
-            scanf("%s",buf);
+            // Clear the input buffer
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+
+            fgets(buf, 100, stdin);
             strcat(message, "reply;");
             strcat(message, buf);
             int sock = send_message(IP, client_ports[ID], message);

@@ -24,6 +24,7 @@
 #define MAX_VALUE_LENGTH 1024
 #define MAX_MESSAGE_LENGTH 1280
 
+
 char IP[20]="127.0.0.1";
 int client_ports[] = {51597,36892,44692,49403,58611};
 int listen_replica_ports[] = {48003,47831,36845,60098,57064};
