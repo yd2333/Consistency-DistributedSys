@@ -2,10 +2,10 @@
 
 ## How to compile and run
 
-1. decide number of server and config server_num in server.c \
-'''
-#define time_length 20
-'''
+1. decide number of server and config ```server_num``` in ```server.c``` \
+```
+#define server_num 3
+```
 
 2. run replica first, run server at the end \
 
