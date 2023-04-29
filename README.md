@@ -31,8 +31,8 @@ run client and follow the prompt
 
 example:
 ```
-./server primary local_write 4000
-./server 1 local_write 4001
+./server 0
+./server 1 
 ./client
 ```
 
