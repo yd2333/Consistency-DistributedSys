@@ -191,3 +191,84 @@ void receive_udp_message(int sockfd, char* message) {
     strcpy(message, buf);
 }
 
+void receive_udp_message_size(int sockfd, char* message, int size) {
+    char buf[MAX_MESSAGE_LENGTH];
+    struct sockaddr_storage sender_addr;
+    socklen_t addr_len = sizeof(sender_addr);
+    int numbytes = recvfrom(sockfd, buf, size , 0, (struct sockaddr *)&sender_addr, &addr_len);
+    if (numbytes == -1) {
+        perror("recvfrom");
+        exit(1);
+    }
+    buf[numbytes] = '\0';
+    printf("Received %d UDP message\n", numbytes);
+    strcpy(message, buf);
+}
+
+void pick_n_idx(int size, int n, int* result) {
+
+    // Pick n random indices from the array
+    for (int i = 0; i < n; i++) {
+        int index = rand() % size;
+
+        // Check that the index hasn't already been selected
+        for (int j = 0; j < i; j++) {
+            if (result[j] == index) {
+                index = rand() % size;
+                j = -1;
+            }
+        }
+
+        // Assign the selected element to the result array
+        result[i] = index;
+    }
+    printf("random result: ");
+    for (int z = 0; z<n; z++){
+        printf("%d ", result[z]);
+    }
+    printf("\n");
+}
+
+int argmax(int a1, int a2){
+    if (a1 > a2) {
+        return a1;
+    }
+    return a2;
+}
+
+// // Encode an array of log structs to a character array
+// char* encode(Person* persons, int size) {
+//     // Allocate memory for the encoded string
+//     char* encoded = malloc(1);
+
+//     // Initialize the encoded string to the empty string
+//     encoded[0] = '\0';
+
+//     // Encode each Person struct in the array
+//     for (int i = 0; i < size; i++) {
+//         // Encode the name and age fields
+//         char buffer[100];
+//         sprintf(buffer, "%s;%d", persons[i].name, persons[i].age);
+
+//         // Concatenate the encoded Person to the encoded string
+//         encoded = realloc(encoded, strlen(encoded) + strlen(buffer) + 2);
+//         strcat(encoded, buffer);
+//         strcat(encoded, ",");
+//     }
+
+//     // Remove the trailing comma from the encoded string
+//     encoded[strlen(encoded) - 1] = '\0';
+
+//     return encoded;
+// }
+
+// // Decode a character array to an array of integers
+// int* decode(char* encoded, int size) {
+//     // Allocate memory for the decoded array
+//     int* decoded = malloc(sizeof(log_entry) * size);
+
+//     // Copy the integers from the encoded string to the decoded array
+//     memcpy(decoded, encoded, sizeof(log_entry) * size);
+
+//     return decoded;
+// }
