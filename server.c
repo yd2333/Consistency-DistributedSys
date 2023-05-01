@@ -374,7 +374,7 @@ int ask_quorum_vote(char* request) {
     strcat(vote_msg, request);
     char answer[MAX_MESSAGE_LENGTH];
     memset(answer, 0, sizeof(answer));
-    printf("Primary broadcast for latest version number\n");
+    printf("Primary broadcast for writing vote\n");
     broadcast(vote_msg, answer, servers, nw);
     if (strcmp(answer, "ack")) {
         printf("vote yes\n");
@@ -460,7 +460,7 @@ void* primary_listen_request() {
         // case 3: write request reply/post
         else if(strcmp(token, "reply") == 0 || strcmp(token, "post") == 0) {
             // if is quorum, have to aquire permission first
-            if (option == 3){
+            if (option == 2){
                 if (ask_quorum_vote(buf) == -1) {
                     memset(answer, 0, sizeof(answer));
                     strcpy(answer, "rej");
@@ -764,6 +764,7 @@ int main(int argc, char *argv[]){
     char message[MAX_MESSAGE_LENGTH];
     char* token;
     while(1){
+        
         // receive from client
         struct sockaddr_storage sender_addr;
         socklen_t addr_len = sizeof(sender_addr);
@@ -774,6 +775,7 @@ int main(int argc, char *argv[]){
         }
         buf[numbytes] = '\0';
         printf("Received UDP message: %s\n", buf);
+        clock_t start = clock();
 
         // server-server communication
         char str[MAX_MESSAGE_LENGTH];
@@ -810,6 +812,9 @@ int main(int argc, char *argv[]){
         // send message back to client
         int n = sendto(client_fd, message, strlen(message) + 1, 0, (struct sockaddr *)&sender_addr, addr_len);
         printf("Answer: %d bytes\n", n);
+        clock_t end = clock();
+        double time = ((double)(end-start)) / CLOCKS_PER_SEC;
+        printf("Time for %d: %f seconds\n", option, time);
 
     }
 

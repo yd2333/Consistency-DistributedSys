@@ -26,9 +26,9 @@
 
 
 char IP[20]="127.0.0.1";
-int client_ports[] = {51597,36892,44692,49403,58611};
-int listen_replica_ports[] = {48003,47831,36845,60098,57064};
-int listen_primary_ports[] = {34453,33631,56542,52437,47973};
+int client_ports[] = {51599,30883,45693,40404,50612};
+int listen_replica_ports[] = {48104,47932,36046,61099,57165};
+int listen_primary_ports[] = {34154,33132,51543,32438,43974};
 
 // server bind to port
 // int bind_udp(int port){
